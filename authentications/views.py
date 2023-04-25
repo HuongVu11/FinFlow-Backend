@@ -34,7 +34,7 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['get'])
-    # @csrf_exempt
+    @csrf_exempt
     def login(self, request):
         serializer = self.serializer_class(data=request.data)
         # print(serializer)
