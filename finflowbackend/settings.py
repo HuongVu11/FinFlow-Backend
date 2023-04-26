@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'authentications.apps.AuthenticationsConfig',
     'incomes.apps.IncomesConfig',
     'expenses.apps.ExpensesConfig',
+    'balances.apps.BalancesConfig',
     'rest_framework',
     # 'rest_framework_simplejwt',
     'corsheaders'

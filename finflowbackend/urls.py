@@ -4,6 +4,7 @@ from rest_framework import routers
 from authentications.views import AuthenticationViewSet
 from incomes.views import IncomeView, IncomeViewID
 from expenses.views import ExpenseView, ExpenseViewID
+from balances.views import BalanceView
 
 # create a new router
 router = routers.DefaultRouter()
@@ -16,5 +17,6 @@ urlpatterns = [
     path('incomes/', IncomeView.as_view()),
     path('incomes/<int:pk>/', IncomeViewID.as_view()),
     path('expenses/', ExpenseView.as_view()),
-    path('expenses/<int:pk>/', ExpenseViewID.as_view())
+    path('expenses/<int:pk>/', ExpenseViewID.as_view()),
+    path('balance/', BalanceView.as_view())
 ]
