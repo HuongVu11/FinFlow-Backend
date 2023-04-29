@@ -11,6 +11,7 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
     @action(detail=False, methods=['post'])
+    @csrf_exempt
     def register(self, request):
         data = json.loads(request.body.decode('utf-8'))
         serializer = self.serializer_class(data=request.data)
@@ -33,6 +34,7 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['put'])
+    @csrf_exempt
     def login(self, request):
         serializer = self.serializer_class(data=request.data)
         # print(serializer)
@@ -50,6 +52,10 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @action(detail=False, methods=['delete'])
+    @csrf_exempt
     def logout(self, request):
+        if request.user.is_authenticated:
             logout(request)
             return Response({'message': 'User logged out successfully.'}, status=status.HTTP_200_OK)
+        else:
+            return Response({'message': 'User not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
