@@ -8,15 +8,12 @@ class Expense(models.Model):
         ('food', 'Food'),
         ('housing', 'Housing'),
         ('transportation', 'Transportation'),
-        ('insurance', 'Insurance'),
         ('entertainment', 'Entertainment'),
         ('personal care', 'Personal Care'),
-        ('healthcare', 'Healthcare'),
-        ('loan', 'Loan'),
-        ('taxes', 'Taxes'),
-        ('gifts and donations', 'Gifts and Donations'),
-        ('savings or investments', 'Savings or Investments'),
+        ('health', 'Health'),
+        ('education', 'Education'),
         ('kids', 'Kids'),
+        ('pets', 'Pets'),
         ('other', 'Other'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)

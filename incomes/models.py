@@ -7,9 +7,10 @@ from datetime import date
 class Income(models.Model):
     CATEGORY_CHOICES = [
         ('salary', 'Salary'),
-        ('business', 'Business'),
+        ('freelance', 'Freelance'),
         ('investment', 'Investment'),
-        ('gift', 'Gift'),
+        ('rental', 'Rental'),
+        ('grant', 'Grant'),
         ('other', 'Other'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
