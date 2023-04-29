@@ -51,8 +51,5 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['delete'])
     def logout(self, request):
-        if request.user.is_authenticated:
             logout(request)
             return Response({'message': 'User logged out successfully.'}, status=status.HTTP_200_OK)
-        else:
-            return Response({'message': 'User not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
