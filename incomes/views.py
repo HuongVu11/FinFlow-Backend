@@ -48,6 +48,6 @@ class IncomeViewID(APIView):
 class IncomeTotalView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
-        totalIncomes = Income.objects.values('category').annotate(total_incomes=Sum('amount')).order_by('-total_incomes').filter(total_incomes__gt=0)
-        serializer = IncomeSerializer(totalIncomes, many=True)
-        return Response(serializer.data)
+        totalIncomes = Income.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
+        print('total income by category: ',totalIncomes)
+        return Response(totalIncomes)
