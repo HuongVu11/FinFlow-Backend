@@ -3,8 +3,8 @@ This is the backend for the FinFlow app. \n\n
 It provides a REST API for managing incomes and expenses records as well as view current balance.
 
 ## Technologies used:
-Django 4.2 \n\n
-Python 3.9.16
+Django 4.2;
+Python 3.9.16;
 
 ## API Documentation
 Here are some endpoints available in the API:
@@ -13,5 +13,5 @@ Here are some endpoints available in the API:
 - '/expenses/': endpoint for managing expense records;
 
 ## Acknowledgements
-Django documentation \n\n
-Django REST Framework documentation
+Django documentation;
+Django REST Framework documentation;
