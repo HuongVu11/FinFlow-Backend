@@ -47,7 +47,7 @@ class ExpenseViewID(APIView):
 
 class ExpenseTotalView(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self, request)
+    def get(self, request):
         totalExpenses = Expense.objects.values('category').annotate(total_expenses=Sum('amount')).order_by('-total_expenses').filter(total_expenses__gt=0)
         serializer = ExpenseSerializer(totalExpenses, many=True)
         return Response(serializer.data)
