@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.db.models import Sum
 from .models import Expense
 from .serializers import ExpenseSerializer
 
@@ -44,4 +45,9 @@ class ExpenseViewID(APIView):
         expense.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+class ExpenseTotalView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request)
+        totalExpenses = Expense.objects.values('category').annotate(total_expenses=Sum('amount')).order_by('-total_expenses').filter(total_expenses__gt=0)
+        serializer = ExpenseSerializer(totalExpenses, many=True)
+        return Response(serializer.data)

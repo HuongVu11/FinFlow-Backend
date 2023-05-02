@@ -1,7 +1,17 @@
 # FinFlow (Backend)
-
-## The User Stories
-As a user, I want to track my spendings. I can add a transaction which can be an income or an expense. I am also able to edit or delete it. The app will let me know my balance.
+This is the backend for the FinFlow app. 
+It provides a REST API for managing incomes and expenses records as well as view current balance.
 
 ## Technologies used:
-Django 
+Django 4.2
+Python 3.9.16
+
+## API Documentation
+Here are some endpoints available in the API:
+'/authentications/': endpoint for managing user's authentications
+'/incomes/': endpoint for managing income records
+'/expenses/': endpoint for managing expense records
+
+## Acknowledgements
+Django documentation
+Django REST Framework documentation

@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from django.db.models import Sum
 from .models import Income
 from .serializers import IncomeSerializer
 
@@ -44,3 +45,9 @@ class IncomeViewID(APIView):
         income.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class IncomeTotalView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request)
+        totalIncomes = Income.objects.values('category').annotate(total_incomes=Sum('amount')).order_by('-total_incomes').filter(total_incomes__gt=0)
+        serializer = IncomeSerializer(totalIncomes, many=True)
+        return Response(serializer.data)
