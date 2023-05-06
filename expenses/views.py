@@ -51,7 +51,7 @@ class ExpenseTotalView(APIView):
     #     totalExpenses = Expense.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
     #     print('total expense by category: ',totalExpenses)
     #     return Response(totalExpenses)
-        def get(self, request):
+    def get(self, request):
         totalExpenses = Expense.objects.filter(user=request.user).values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
         print('total expense by category: ',totalExpenses)
         return Response(totalExpenses)
