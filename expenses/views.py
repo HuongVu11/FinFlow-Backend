@@ -51,3 +51,21 @@ class ExpenseTotalView(APIView):
         totalExpenses = Expense.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
         print('total expense by category: ',totalExpenses)
         return Response(totalExpenses)
+
+class ExpenseByMonthView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+        expenses = Expense.objects.filter(
+            user=request.user,
+            date__month=month,
+            date__year=year
+        ).order_by('date')
+        serializer = ExpenseSerializer(expenses, many=True)
+        total = expenses.aggregate(Sum('amount'))['amount__sum'] or 0
+        data = {
+            'expenses': serializer.data,
+            'total': total
+        }
+        return Response(data)

@@ -51,3 +51,21 @@ class IncomeTotalView(APIView):
         totalIncomes = Income.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
         print('total income by category: ',totalIncomes)
         return Response(totalIncomes)
+
+class IncomeByMonthView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        month = request.GET.get('month')
+        year = request.GET.get('year')
+        incomes = Income.objects.filter(
+            user=request.user,
+            date__month=month,
+            date__year=year
+        ).order_by('date')
+        serializer = IncomeSerializer(incomes, many=True)
+        total = incomes.aggregate(Sum('amount'))['amount__sum'] or 0
+        data = {
+            'incomes': serializer.data,
+            'total': total
+        }
+        return Response(data)

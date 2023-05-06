@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from .serializers import UserSerializer
@@ -59,3 +60,9 @@ class AuthenticationViewSet(viewsets.ModelViewSet):
             return Response({'message': 'User logged out successfully.'}, status=status.HTTP_200_OK)
         else:
             return Response({'message': 'User not authenticated.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class DeleteAccountView(APIView):
+    def delete(self, request):
+        user = request.user
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
