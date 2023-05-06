@@ -47,9 +47,12 @@ class IncomeViewID(APIView):
 
 class IncomeTotalView(APIView):
     permission_classes = [IsAuthenticated]
+    # def get(self, request):
+    #     totalIncomes = Income.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
+    #     print('total income by category: ',totalIncomes)
+    #     return Response(totalIncomes)
     def get(self, request):
-        totalIncomes = Income.objects.values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
-        print('total income by category: ',totalIncomes)
+        totalIncomes = Income.objects.filter(user=request.user).values('category').annotate(totalAmount=Sum('amount')).order_by('-totalAmount').filter(totalAmount__gt=0)
         return Response(totalIncomes)
 
 class IncomeByMonthView(APIView):
